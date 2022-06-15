@@ -1,0 +1,74 @@
+* { margin: 0; padding: 0; }
+
+/*  -   -   FLEXBOX  -   -   */
+
+.flex { display: flex; }
+.d-row { flex-direction: row; }
+.d-col { flex-direction: column; }
+.hide { display: none; }
+
+/*  -   -   -   -   -   -   */
+
+
+/*  -   -   FA ICONS  -   -   */
+
+.fas { pointer-events: none; }
+.fa-message { color: #48c774; }
+.fa-image { color: #3298dc; }
+
+/*  -   -   -   -   -   -   */
+
+
+/*  -   -   COLORS  -   -   */
+
+.green { color: #48c774; }
+.red { color: #f14668; }
+.gray{ color: #7a7a7a; }
+.blue{ color: #3273dc; }
+
+/*  -   -   -   -   -   -   */
+
+.wrapper {
+    /* width: 700px; */
+    margin: 0 auto;
+    align-items: center;
+}
+
+.row {
+    width: 100%;
+}
+
+/* .employee {
+    height: fit-content;
+    justify-content: space-between;
+    width: 140px;
+}
+
+.dates{
+    width: 560px;
+}
+
+.date {
+    height: fit-content;
+    width: 150px;
+    justify-content: space-between;
+}
+
+.tickets {
+    
+}
+
+.ticket {
+    width: 100%;
+}
+#time {
+    width: fit-content;
+}
+
+#project {
+    width: 150px;
+}
+
+#activity {
+width: 150px;
+} */
