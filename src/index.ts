@@ -3,7 +3,7 @@ import { ticketsJson } from './fetchRequests';
 import { BookingData, DateData, TicketData } from './types';
 import { activityList, h, projectList } from './structureBuilder';
 import { ICONS, SYS, ticketContainer } from './constantGlobals';
- 
+
 function returnDateElement(dateData: DateData) {
     const booking = dateData.bookings.map(renderBookingData);
     return renderDateData(dateData, booking);
