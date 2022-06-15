@@ -1,4 +1,4 @@
-import { activiesJson, projectsJson } from "./fetchRequests";
+import { activitiesJson, projectsJson } from "./fetchRequests";
 import { ActivityData } from "./types";
 
 const findAll = (obj: Array<ActivityData>, value: number): Array<ActivityData> => {
@@ -58,7 +58,7 @@ export function projectList(selected: number): Element[] {
 export function activityList(projId: number, selected: number): Element[] {
     const list: Element[] = [];
 
-    findAll(activiesJson, projId).forEach(elem => {
+    findAll(activitiesJson, projId).forEach(elem => {
         const element = document.createElement('option');
 
         element.value = elem.activityId.toString();
