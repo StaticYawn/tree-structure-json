@@ -20,4 +20,4 @@ export const ICONS = {
     delete: 'fas fa-trash'
 }
 
-export const ticketList = document.querySelector('.ticket-list') as Element;
+export const ticketContainer = document.querySelector('.ticket-container') as Element;

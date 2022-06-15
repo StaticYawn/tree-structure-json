@@ -2,7 +2,7 @@ import './style.css'
 import { ticketsJson } from './fetchRequests';
 import { BookingData, DateData, TicketData } from './types';
 import { activityList, h, projectList } from './structureBuilder';
-import { ICONS, SYS, ticketList } from './constantGlobals';
+import { ICONS, SYS, ticketContainer } from './constantGlobals';
  
 function returnDateElement(dateData: DateData) {
     const booking = dateData.bookings.map(renderBookingData);
@@ -13,8 +13,6 @@ function returnTicketElement(userData: TicketData) {
     const dateList = userData.dates.map(returnDateElement);
     return renderTicketData(userData, dateList)
 }
-
-// RSA test from cmd
 
 function renderBookingData(bookingData: BookingData) {
     const row =
@@ -78,13 +76,12 @@ function getInfoIconsFromKey(bookingData: BookingData) {
 }
 
 ticketsJson.forEach(user => {
-    ticketList.append(returnTicketElement(user))
+    ticketContainer.append(returnTicketElement(user))
 });
 
 
 function updateActivitySelect(target: HTMLSelectElement) {
     const elemToUpdate = target.parentElement?.children[1];
-    console.log(elemToUpdate)
     if (!elemToUpdate) return;
     if (elemToUpdate.classList.contains('activitySelect')) {
         elemToUpdate.textContent = '';
