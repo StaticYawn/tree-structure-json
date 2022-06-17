@@ -14,5 +14,3 @@ async function getJson(url: string) {
 export const [ticketsJson, projectsJson, activitiesJson] = await Promise.all(
         ['tickets', 'projects', 'activities'].map(f => getJson(`/${f}.json`))
     )  as [TicketData[], ProjectData[], ActivityData[]];
-
-
