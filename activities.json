@@ -1,87 +1,87 @@
 [
     {
-        "activityId": 1,
+        "id": 1,
         "projectId": 1,
-        "activityName": "activity01"
+        "name": "activity01"
     },
     {
-        "activityId": 2,
+        "id": 2,
         "projectId": 1,
-        "activityName": "activity02"
+        "name": "activity02"
     },
     {
-        "activityId": 3,
+        "id": 3,
         "projectId": 1,
-        "activityName": "activity03"
+        "name": "activity03"
     },
     {
-        "activityId": 4,
+        "id": 4,
         "projectId": 1,
-        "activityName": "activity04"
+        "name": "activity04"
     },
     {
-        "activityId": 5,
+        "id": 5,
         "projectId": 1,
-        "activityName": "activity05"
+        "name": "activity05"
     },
     {
-        "activityId": 6,
+        "id": 6,
         "projectId": 1,
-        "activityName": "activity06"
+        "name": "activity06"
     },
     {
-        "activityId": 7,
+        "id": 7,
         "projectId": 1,
-        "activityName": "activity07"
+        "name": "activity07"
     },
     {
-        "activityId": 8,
+        "id": 8,
         "projectId": 1,
-        "activityName": "activity08"
+        "name": "activity08"
     },
     {
-        "activityId": 9,
+        "id": 9,
         "projectId": 1,
-        "activityName": "activity09"
+        "name": "activity09"
     },
     {
-        "activityId": 10,
+        "id": 10,
         "projectId": 1,
-        "activityName": "activity10"
+        "name": "activity10"
     },
     {
-        "activityId": 11,
+        "id": 11,
         "projectId": 2,
-        "activityName": "Programmieren"
+        "name": "Programmieren"
     },
     {
-        "activityId": 12,
+        "id": 12,
         "projectId": 2,
-        "activityName": "Meeting"
+        "name": "Meeting"
     },
     {
-        "activityId": 13,
+        "id": 13,
         "projectId": 2,
-        "activityName": "Bug Fixen"
+        "name": "Bug Fixen"
     },
     {
-        "activityId": 14,
+        "id": 14,
         "projectId": 3,
-        "activityName": "Boden Aufreißen"
+        "name": "Boden Aufreißen"
     },
     {
-        "activityId": 15,
+        "id": 15,
         "projectId": 3,
-        "activityName": "Wand brechen"
+        "name": "Wand brechen"
     },
     {
-        "activityId": 16,
+        "id": 16,
         "projectId": 4,
-        "activityName": "Anfahrt"
+        "name": "Anfahrt"
     },
     {
-        "activityId": 17,
+        "id": 17,
         "projectId": 4,
-        "activityName": "Abfahrt"
+        "name": "Abfahrt"
     }
 ]
