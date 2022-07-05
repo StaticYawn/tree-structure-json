@@ -1,13 +1,13 @@
 type ActivityData = {
-  activityId: number,
+  id: number,
   projectId: number,
-  activityName: string
+  name: string
 }
 
 type ProjectData = {
-  projectId: number,
+  id: number,
   customerId: number,
-  projectName: string,
+  name: string,
 }
 
 type TicketData = {
