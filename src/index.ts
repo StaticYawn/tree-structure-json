@@ -1,7 +1,7 @@
 import './style.css'
 import { ticketsJson } from './fetchRequests';
 import { BookingData, DateData, TicketData } from './types';
-import { activityList, h, projectList } from './structureBuilder';
+import { h, listChildren } from './structureBuilder';
 import { ICONS, SYS, ticketContainer } from './constantGlobals';
 
 function returnDateElement(dateData: DateData) {
@@ -16,57 +16,62 @@ function returnTicketElement(userData: TicketData) {
 
 function renderBookingData(bookingData: BookingData) {
     const row =
-        h('div', { className: 'booking flex d-row' }, h('select', {
-            className: 'projectSelect', onchange: event => updateActivitySelect(event.target as HTMLSelectElement),
-            name: bookingData.projectId.toString()
-        }, ...projectList(bookingData.projectId)
-        ),
-            bookingData.activityId ? h('select', {
-                className: 'activitySelect', onchange: event => updateActivitySelect(event.target as HTMLSelectElement),
-                name: bookingData.activityId.toString()
-            }, ...activityList(bookingData.projectId, bookingData.activityId)) : spanFromActivityType(bookingData.activityType),
-            h('div', {}, ...getInfoIconsFromKey(bookingData)),
-            h('button', { className: 'edit-button' },
-                h('i', { className: ICONS.edit })),
-            h('button', { className: 'delete-button' },
-                h('i', { className: ICONS.delete }))
+        h('div', { className: 'booking flex' },
+            h('input', { type: 'time', value: bookingData.time }),
+            h('select', {
+                className: 'projectSelect', onchange: event => updateActivitySelect(event),
+                name: bookingData.projectId.toString()
+            },
+                ...listChildren(bookingData.projectId)),
+            bookingData.activityId ?
+                h('select', { className: 'activitySelect', name: bookingData.activityId.toString() },
+                    ...listChildren(bookingData.activityId, bookingData.projectId)) :
+                spanFromActivityType(bookingData.activityType),
+            h('div', { className: 'infoIcons' },
+                ...renderInfoIconsFromKey(bookingData)),
+            h('div', { className: '' },
+                h('button', { className: 'edit-button' },
+                    h('i', { className: ICONS.edit })),
+                h('button', { className: 'delete-button' },
+                    h('i', { className: ICONS.delete }))
+            ),
         );
     return row;
 }
 
 function renderDateData(dateData: DateData, bookingList: Element[]) {
     const row =
-        h('div', { className: 'date-row flex d-col' },
+        h('div', { className: 'date-row row flex d-col' },
             h('div', { className: 'date flex d-row' },
-                h('input', { type: 'date', value: dateData.date }),
-                h('button', { className: 'toggle-button', onclick: event => toggleSect(event.target as HTMLButtonElement) },
-                    h('i', { className: ICONS.plus }))),
-            h('div', { className: 'booking-list flex d-col hide' }, ...bookingList)
+                h('button', { className: 'toggle-button', onclick: event => toggleSect(event) },
+                    h('i', { className: ICONS.plus })),
+                h('input', { type: 'date', value: dateData.date })),
+            h('div', { className: 'booking-list list flex d-col hide' },
+                ...bookingList)
         );
-
     return row;
 }
 
 function renderTicketData(userData: TicketData, dateList: Element[]) {
     const row =
-        h('div', { className: 'employee-row flex d-col' },
+        h('div', { className: 'employee-row row flex d-col' },
             h('div', { className: 'employee flex d-row' },
-                h('p', { textContent: userData.name }),
-                h('button', { className: 'toggle-button', onclick: event => toggleSect(event.target as HTMLButtonElement) },
-                    h('i', { className: ICONS.plus }))),
-            h('div', { className: 'date-list flex d-col hide' }, ...dateList)
+                h('button', { className: 'toggle-button', onclick: event => toggleSect(event) },
+                    h('i', { className: ICONS.plus })),
+                h('a', { className: 'username', href: '#', textContent: userData.name })),
+            h('div', { className: 'date-list list flex d-col hide' },
+                ...dateList)
         );
-
     return row;
 }
 
 function spanFromActivityType(type: number) {
+    const icons = SYS[type as keyof typeof SYS]
     return h('span',
-        { className: SYS[type as keyof typeof SYS].color },
-        SYS[type as keyof typeof SYS].text);
+        { className: icons.color }, icons.text);
 }
 
-function getInfoIconsFromKey(bookingData: BookingData) {
+function renderInfoIconsFromKey(bookingData: BookingData) {
     const filterByBool = Object.keys(bookingData).filter(key => {
         return !bookingData[key as keyof BookingData] && ICONS[key as keyof typeof ICONS]
     });
@@ -80,28 +85,33 @@ ticketsJson.forEach(user => {
 });
 
 
-function updateActivitySelect(target: HTMLSelectElement) {
-    const elemToUpdate = target.parentElement?.children[1];
+function updateActivitySelect(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const elemToUpdate = target.parentElement?.children[2];
+
     if (!elemToUpdate) return;
-    if (elemToUpdate.classList.contains('activitySelect')) {
-        elemToUpdate.textContent = '';
-        elemToUpdate.append(...activityList(parseInt(target.value), 1));
-    }
+    if (!elemToUpdate.classList.contains('activitySelect')) return;
+
+    elemToUpdate.textContent = '';
+    elemToUpdate.append(...listChildren(1, parseInt(target.value)));
 }
 
-function toggleSect(target: HTMLButtonElement) {
-    const icon = target.children[0];
+function toggleSect(event: Event) {
+    const target = event.target as HTMLButtonElement;
+    const icon = target.firstElementChild;
+    if (!icon) return;
     updateButtonIcon(icon);
 
-    const parent = target.parentElement?.parentElement;
+    const parent = target.closest('.row');
     if (!parent) return;
+    console.log(parent.querySelectorAll('.toggle-button'))
     if (parent.classList.contains('employee-row')) {
         parent.querySelectorAll('.booking-list:not(.hide)')
             .forEach(elem => elem.classList.toggle('hide'));
         parent.querySelectorAll('.date-list .toggle-button .fa-minus')
             .forEach(icon => updateButtonIcon(icon));
     }
-    parent.children[1].classList.toggle('hide');
+    parent.querySelector('.list')!.classList.toggle('hide');
 }
 
 function updateButtonIcon(icon: Element) {
