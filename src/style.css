@@ -28,47 +28,6 @@
 
 /*  -   -   -   -   -   -   */
 
-.wrapper {
-    /* width: 700px; */
-    margin: 0 auto;
-    align-items: center;
-}
-
-.row {
-    width: 100%;
-}
-
-/* .employee {
-    height: fit-content;
-    justify-content: space-between;
-    width: 140px;
-}
-
-.dates{
-    width: 560px;
-}
-
-.date {
-    height: fit-content;
-    width: 150px;
-    justify-content: space-between;
-}
-
-.tickets {
+.employee {
     
 }
-
-.ticket {
-    width: 100%;
-}
-#time {
-    width: fit-content;
-}
-
-#project {
-    width: 150px;
-}
-
-#activity {
-width: 150px;
-} */
