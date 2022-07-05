@@ -1,11 +1,11 @@
 import { activitiesJson, projectsJson } from "./fetchRequests";
-import { ActivityData } from "./types";
+import { ActivityData, BookingData, ProjectData } from "./types";
 
 const findAll = (obj: Array<ActivityData>, value: number): Array<ActivityData> => {
     return obj.filter(e => e.projectId === value)
 }
 
-export function h(tagName: string, attrsAndEvents: { [key: string]: string | ((event: Event) => void) } = {}, ...children: (Element | string)[]): Element {
+export function h(tagName: string, attrsAndEvents: { [key: string]: string | ((event: Event) => void) | void } = {}, ...children: (Element | string)[]): Element {
     const element = document.createElement(tagName);
 
     const [attributes, events] = partition(
@@ -41,32 +41,14 @@ function partition<T>(iter: Iterable<T>, fn: (item: T, index: number, iter: Iter
     return [passed, failed]
 }
 
-export function projectList(selected: number): Element[] {
-    const list: Element[] = [];
-
-    projectsJson.forEach(proj => {
+export function listChildren(selected: number, projId?: number): Element[] {
+    const children1 = projId ? findAll(activitiesJson, projId) : projectsJson;
+    return children1.map(({ id, name, ...rest }) => {
         const element = document.createElement('option');
-
-        element.value = proj.projectId.toString();
-        element.textContent = `${proj.projectName}`;
-
-        if (proj.projectId === selected) element.selected = true;
-        list.push(element);
+        element.value = id.toString();
+        if('customerId' in rest) element.textContent = `(${rest.customerId}) ${name}`
+        else element.textContent = `${name}`;
+        if (id === selected) element.selected = true;
+        return element;
     });
-    return list;
-}
-
-export function activityList(projId: number, selected: number): Element[] {
-    const list: Element[] = [];
-
-    findAll(activitiesJson, projId).forEach(elem => {
-        const element = document.createElement('option');
-
-        element.value = elem.activityId.toString();
-        element.textContent = `${elem.activityName}`;
-
-        if (elem.activityId === selected) element.selected = true;
-        list.push(element);
-    });
-    return list;
 }
