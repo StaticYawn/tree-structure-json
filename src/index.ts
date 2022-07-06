@@ -16,24 +16,23 @@ function returnTicketElement(userData: TicketData) {
 
 function renderBookingData(bookingData: BookingData) {
     const row =
-        h('div', { className: 'booking flex' },
-            h('input', { type: 'time', value: bookingData.time }),
-            h('select', {
-                className: 'projectSelect', onchange: event => updateActivitySelect(event),
-                name: bookingData.projectId.toString()
-            },
+        h('div', { className: 'booking flex d-col' },
+            h('input', { className: 'time-input', type: 'time', value: bookingData.time }),
+            h('select', { className: 'project-select', onchange: event => updateActivitySelect(event), name: bookingData.projectId.toString() },
                 ...listChildren(bookingData.projectId)),
             bookingData.activityId ?
-                h('select', { className: 'activitySelect', name: bookingData.activityId.toString() },
+                h('select', { className: 'activity-select activity', name: bookingData.activityId.toString() },
                     ...listChildren(bookingData.activityId, bookingData.projectId)) :
                 spanFromActivityType(bookingData.activityType),
-            h('div', { className: 'infoIcons' },
-                ...renderInfoIconsFromKey(bookingData)),
-            h('div', { className: '' },
-                h('button', { className: 'edit-button' },
-                    h('i', { className: ICONS.edit })),
-                h('button', { className: 'delete-button' },
-                    h('i', { className: ICONS.delete }))
+            h('div', { className: 'icon-button-group flex' },
+                h('div', { className: 'info-icons' },
+                    ...renderInfoIconsFromKey(bookingData)),
+                h('div', { className: 'util-buttons' },
+                    h('button', { className: 'edit-button' },
+                        h('i', { className: ICONS.edit })),
+                    h('button', { className: 'delete-button' },
+                        h('i', { className: ICONS.delete }))
+                )
             ),
         );
     return row;
@@ -45,8 +44,8 @@ function renderDateData(dateData: DateData, bookingList: Element[]) {
             h('div', { className: 'date flex d-row' },
                 h('button', { className: 'toggle-button', onclick: event => toggleSect(event) },
                     h('i', { className: ICONS.plus })),
-                h('input', { type: 'date', value: dateData.date })),
-            h('div', { className: 'booking-list list flex d-col hide' },
+                h('input', { className: 'date-input', type: 'date', value: dateData.date })),
+            h('div', { className: 'booking-list list flex d-col ' },
                 ...bookingList)
         );
     return row;
@@ -58,8 +57,8 @@ function renderTicketData(userData: TicketData, dateList: Element[]) {
             h('div', { className: 'employee flex d-row' },
                 h('button', { className: 'toggle-button', onclick: event => toggleSect(event) },
                     h('i', { className: ICONS.plus })),
-                h('a', { className: 'username', href: '#', textContent: userData.name })),
-            h('div', { className: 'date-list list flex d-col hide' },
+                h('p', { className: 'username', textContent: userData.name })),
+            h('div', { className: 'date-list list flex d-col ' },
                 ...dateList)
         );
     return row;
@@ -68,7 +67,7 @@ function renderTicketData(userData: TicketData, dateList: Element[]) {
 function spanFromActivityType(type: number) {
     const icons = SYS[type as keyof typeof SYS]
     return h('span',
-        { className: icons.color }, icons.text);
+        { className: icons.color + ' activity' }, icons.text);
 }
 
 function renderInfoIconsFromKey(bookingData: BookingData) {
@@ -90,7 +89,7 @@ function updateActivitySelect(event: Event) {
     const elemToUpdate = target.parentElement?.children[2];
 
     if (!elemToUpdate) return;
-    if (!elemToUpdate.classList.contains('activitySelect')) return;
+    if (!elemToUpdate.classList.contains('activity-select')) return;
 
     elemToUpdate.textContent = '';
     elemToUpdate.append(...listChildren(1, parseInt(target.value)));
@@ -104,7 +103,6 @@ function toggleSect(event: Event) {
 
     const parent = target.closest('.row');
     if (!parent) return;
-    console.log(parent.querySelectorAll('.toggle-button'))
     if (parent.classList.contains('employee-row')) {
         parent.querySelectorAll('.booking-list:not(.hide)')
             .forEach(elem => elem.classList.toggle('hide'));
