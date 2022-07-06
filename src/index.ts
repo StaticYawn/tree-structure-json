@@ -17,23 +17,25 @@ function returnTicketElement(userData: TicketData) {
 function renderBookingData(bookingData: BookingData) {
     const row =
         h('div', { className: 'booking flex d-col' },
-            h('input', { className: 'time-input', type: 'time', value: bookingData.time }),
+            h('div', {className: 'utility flex d-row'},
+                h('input', { className: 'time-input', type: 'time', value: bookingData.time }),
+                h('div', { className: 'icon-button-group flex' },
+                    h('div', { className: 'info-icons flex' },
+                        ...renderInfoIconsFromKey(bookingData)),
+                    h('div', { className: 'util-buttons ' },
+                        h('button', { className: 'edit-button' },
+                            h('i', { className: ICONS.edit })),
+                        h('button', { className: 'delete-button' },
+                            h('i', { className: ICONS.delete }))
+                    )
+                )
+            ),
             h('select', { className: 'project-select', onchange: event => updateActivitySelect(event), name: bookingData.projectId.toString() },
                 ...listChildren(bookingData.projectId)),
             bookingData.activityId ?
-                h('select', { className: 'activity-select activity', name: bookingData.activityId.toString() },
+                h('select', { className: 'activity-select', name: bookingData.activityId.toString() },
                     ...listChildren(bookingData.activityId, bookingData.projectId)) :
                 spanFromActivityType(bookingData.activityType),
-            h('div', { className: 'icon-button-group flex' },
-                h('div', { className: 'info-icons' },
-                    ...renderInfoIconsFromKey(bookingData)),
-                h('div', { className: 'util-buttons' },
-                    h('button', { className: 'edit-button' },
-                        h('i', { className: ICONS.edit })),
-                    h('button', { className: 'delete-button' },
-                        h('i', { className: ICONS.delete }))
-                )
-            ),
         );
     return row;
 }
@@ -67,7 +69,7 @@ function renderTicketData(userData: TicketData, dateList: Element[]) {
 function spanFromActivityType(type: number) {
     const icons = SYS[type as keyof typeof SYS]
     return h('span',
-        { className: icons.color + ' activity' }, icons.text);
+        { className: `${icons.color} span-activity` }, icons.text);
 }
 
 function renderInfoIconsFromKey(bookingData: BookingData) {
