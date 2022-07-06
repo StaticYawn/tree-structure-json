@@ -201,7 +201,7 @@ body {
     content: '';
     position: absolute;
     width: var(--line-thickness);
-    height: 100%;
+    height: calc(50% - 0.5rem);
     /* height: 22px; */
     background-color: black;
     top: -14px;
@@ -219,21 +219,21 @@ body {
     width: 22px;
     height: var(--line-thickness);
     background-color: black;
-    top: 0.5rem;
-    left: calc(-2.5rem);
+    top: 10%;
+    left: -2.5rem;
 }
 .booking::after {
     content: '';
     position: absolute;
     width: 0.75rem;
-    height: 90%;
+    height: 80%;
     border: 2px solid black;
     border-right: none;
     border-top: none;
     border-bottom: none;
     inset: 0;
-    top: 5%;
-    left: -1rem;
+    top: 10%;
+    left: calc(-1rem - 0.25rem);
     box-sizing: border-box;
 }
 
