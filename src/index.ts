@@ -16,20 +16,15 @@ function returnTicketElement(userData: TicketData) {
 
 function renderBookingData(bookingData: BookingData) {
     const row =
-        h('div', { className: 'booking flex d-col' },
-            h('div', {className: 'utility flex d-row'},
-                h('input', { className: 'time-input', type: 'time', value: bookingData.time }),
-                h('div', { className: 'icon-button-group flex' },
-                    h('div', { className: 'info-icons flex' },
-                        ...renderInfoIconsFromKey(bookingData)),
-                    h('div', { className: 'util-buttons ' },
-                        h('button', { className: 'edit-button' },
-                            h('i', { className: ICONS.edit })),
-                        h('button', { className: 'delete-button' },
-                            h('i', { className: ICONS.delete }))
-                    )
-                )
-            ),
+        h('div', { className: 'booking' },
+            h('input', { className: 'time-input', type: 'time', value: bookingData.time }),
+            h('div', { className: 'info-icons' },
+                ...renderInfoIconsFromKey(bookingData)),
+            h('div', { className: 'util-buttons ' },
+                h('button', { className: 'edit-button' },
+                    h('i', { className: ICONS.edit })),
+                h('button', { className: 'delete-button' },
+                    h('i', { className: ICONS.delete }))),
             h('select', { className: 'project-select', onchange: event => updateActivitySelect(event), name: bookingData.projectId.toString() },
                 ...listChildren(bookingData.projectId)),
             bookingData.activityId ?
