@@ -1,4 +1,5 @@
-import './style.css'
+// import './style.css'
+import './register.css'
 import { ticketsJson } from './fetchRequests';
 import { BookingData, DateData, TicketData } from './types';
 import { h, listChildren } from './structureBuilder';
@@ -16,21 +17,23 @@ function returnTicketElement(userData: TicketData) {
 
 function renderBookingData(bookingData: BookingData) {
     const row =
-        h('div', { className: 'booking' },
-            h('input', { className: 'time-input', type: 'time', value: bookingData.time }),
-            h('div', { className: 'info-icons' },
-                ...renderInfoIconsFromKey(bookingData)),
-            h('div', { className: 'util-buttons ' },
-                h('button', { className: 'edit-button' },
-                    h('i', { className: ICONS.edit })),
-                h('button', { className: 'delete-button' },
-                    h('i', { className: ICONS.delete }))),
-            h('select', { className: 'project-select', onchange: event => updateActivitySelect(event), name: bookingData.projectId.toString() },
+        h('div', { className: 'booking flex' },
+            h('div', { className: 'time-input-div' },
+                h('input', { className: 'time-input input is-small', type: 'time', value: bookingData.time })),
+            h('select', { className: 'proj-sel select is-small', onchange: event => updateActivitySelect(event), name: bookingData.projectId.toString() },
                 ...listChildren(bookingData.projectId)),
             bookingData.activityId ?
-                h('select', { className: 'activity-select', name: bookingData.activityId.toString() },
+                h('select', { className: 'activ-sel select is-small', name: bookingData.activityId.toString() },
                     ...listChildren(bookingData.activityId, bookingData.projectId)) :
                 spanFromActivityType(bookingData.activityType),
+            h('div', { className: 'utility flex' },
+                h('div', { className: 'info-icons flex' },
+                    ...renderInfoIconsFromKey(bookingData)),
+                h('div', { className: 'util-buttons flex' },
+                    h('a', { className: 'edit-button button is-link is-small', href: '#' },
+                        h('i', { className: ICONS.edit })),
+                    h('a', { className: 'delete-button button is-danger is-small', href: '#' },
+                        h('i', { className: ICONS.delete }))))
         );
     return row;
 }
@@ -41,8 +44,8 @@ function renderDateData(dateData: DateData, bookingList: Element[]) {
             h('div', { className: 'date flex d-row' },
                 h('button', { className: 'toggle-button', onclick: event => toggleSect(event) },
                     h('i', { className: ICONS.plus })),
-                h('input', { className: 'date-input', type: 'date', value: dateData.date })),
-            h('div', { className: 'booking-list list flex d-col ' },
+                h('input', { className: 'date-input input is-small', type: 'date', value: dateData.date })),
+            h('div', { className: 'booking-list list flex d-col is-hidde' },
                 ...bookingList)
         );
     return row;
@@ -55,7 +58,7 @@ function renderTicketData(userData: TicketData, dateList: Element[]) {
                 h('button', { className: 'toggle-button', onclick: event => toggleSect(event) },
                     h('i', { className: ICONS.plus })),
                 h('p', { className: 'username', textContent: userData.name })),
-            h('div', { className: 'date-list list flex d-col ' },
+            h('div', { className: 'date-list list flex d-col is-hidde' },
                 ...dateList)
         );
     return row;
@@ -64,7 +67,7 @@ function renderTicketData(userData: TicketData, dateList: Element[]) {
 function spanFromActivityType(type: number) {
     const icons = SYS[type as keyof typeof SYS]
     return h('span',
-        { className: `${icons.color} span-activity` }, icons.text);
+        { className: `${icons.color} flex span-activity is-small` }, icons.text);
 }
 
 function renderInfoIconsFromKey(bookingData: BookingData) {
@@ -101,12 +104,12 @@ function toggleSect(event: Event) {
     const parent = target.closest('.row');
     if (!parent) return;
     if (parent.classList.contains('employee-row')) {
-        parent.querySelectorAll('.booking-list:not(.hide)')
-            .forEach(elem => elem.classList.toggle('hide'));
+        parent.querySelectorAll('.booking-list:not(.is-hidden)')
+            .forEach(elem => elem.classList.toggle('is-hidden'));
         parent.querySelectorAll('.date-list .toggle-button .fa-minus')
             .forEach(icon => updateButtonIcon(icon));
     }
-    parent.querySelector('.list')!.classList.toggle('hide');
+    parent.querySelector('.list')!.classList.toggle('is-hidden');
 }
 
 function updateButtonIcon(icon: Element) {
