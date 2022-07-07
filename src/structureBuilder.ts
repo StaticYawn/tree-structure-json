@@ -1,5 +1,5 @@
 import { activitiesJson, projectsJson } from "./fetchRequests";
-import { ActivityData, BookingData, ProjectData } from "./types";
+import { ActivityData } from "./types";
 
 const findAll = (obj: Array<ActivityData>, value: number): Array<ActivityData> => {
     return obj.filter(e => e.projectId === value)
