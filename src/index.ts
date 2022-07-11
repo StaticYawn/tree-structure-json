@@ -45,7 +45,7 @@ function renderDateData(dateData: DateData, bookingList: Element[]) {
                 h('button', { className: 'toggle-button', onclick: event => toggleSect(event) },
                     h('i', { className: ICONS.plus })),
                 h('input', { className: 'date-input input is-small', type: 'date', value: dateData.date })),
-            h('div', { className: 'booking-list list flex d-col is-hidde' },
+            h('div', { className: 'booking-list list flex d-col is-hidden' },
                 ...bookingList)
         );
     return row;
@@ -58,7 +58,7 @@ function renderTicketData(userData: TicketData, dateList: Element[]) {
                 h('button', { className: 'toggle-button', onclick: event => toggleSect(event) },
                     h('i', { className: ICONS.plus })),
                 h('p', { className: 'username', textContent: userData.name })),
-            h('div', { className: 'date-list list flex d-col is-hidde' },
+            h('div', { className: 'date-list list flex d-col is-hidden' },
                 ...dateList)
         );
     return row;
