@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "customerId": 1,
+        "name": "Umbauen"
+    },
+    {
+        "id": 2,
+        "customerId": 2,
+        "name": "Büroarbeit"
+    },
+    {
+        "id": 3,
+        "customerId": 3,
+        "name": "Sanierung"
+    },
+    {
+        "id": 4,
+        "customerId": 4,
+        "name": "Wasserzähler"
+    }
+]
