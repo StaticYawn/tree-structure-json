@@ -10386,7 +10386,7 @@ a.has-text-danger-dark:hover {
 
 body {
     background-color: hsl(0, 0%, 90%);
-    padding: 24px
+    padding: 12px
 }
 
 .ticket-container {
@@ -10525,10 +10525,10 @@ body {
 .info-icons {
     align-items: center;
     justify-content: space-around;
-    width: 2.5rem;
+    width: 3rem;
 }
 .util-buttons {
-    width: 6.25rem;
+    width: 5rem;
     align-items: center;
     justify-content: space-around;
 }
