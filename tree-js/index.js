@@ -30,8 +30,8 @@ async function getJson(url) {
     }
 }
 
-const ticketsJson = await getJson('https://test.bizztime.eu/Node.php?n=ticket-list&from=2022-07-05&to=2022-07-11&worker=4');
-const [projectsJson, activitiesJson] = await Promise.all(
+// const ticketsJson = await getJson('https://test.bizztime.eu/Node.php?n=ticket-list&from=2022-07-05&to=2022-07-11&worker=4');
+const [ticketsJson, projectsJson, activitiesJson] = await Promise.all(
     ['tickets', 'projects', 'activities'].map(f => getJson(`/${f}.json`))
 );
 
@@ -163,7 +163,7 @@ function renderInfoIconsFromKey(bookingData) {
 }
 
 
-const ticketContainer = document.querySelector('.ticketContainer');
+const ticketContainer = document.querySelector('.ticket-container');
 ticketsJson.forEach(user => {
     ticketContainer.append(returnTicketElement(user))
 });
